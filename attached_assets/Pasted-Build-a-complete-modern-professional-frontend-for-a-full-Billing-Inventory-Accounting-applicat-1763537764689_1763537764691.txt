@@ -1,0 +1,378 @@
+Build a complete, modern, professional frontend for a full Billing + Inventory + Accounting application. Take UI/UX inspiration from apps like Vyapar, myBillBook, Zoho Books, TallyPrime, Marg ERP, BUSY Accounting, and Khatabook.
+The frontend should be responsive, minimal, fast, and business-oriented. Use clean typography, a sidebar layout, and neatly spaced UI components with cards, tables, and modals.
+Generate the entire React frontend structure, pages, components, routing, state management, reusable UI elements, forms, tables, validation, and sample mock data.
+Follow all details below.
+
+1. App Structure
+
+Create a complete folder structure:
+
+src/
+ ├── components/
+ ├── pages/
+ ├── layouts/
+ ├── hooks/
+ ├── utils/
+ ├── config/
+ ├── styles/
+ ├── store/
+ └── App.jsx
+
+
+Use React + React Router + Context API or Redux Toolkit.
+
+2. Global Styles + Themes
+
+Modern, clean business UI
+
+Sidebar navigation
+
+Light theme with blue accents
+
+Use Tailwind / Material UI / Chakra UI (choose one)
+
+Consistent spacing, shadows, and rounded corners
+
+Font: Inter / Poppins
+
+3. Core Modules to Build
+
+You must build 3 core modules:
+
+A. Billing Module
+
+Pages:
+
+Create Invoice
+
+Quotation / Estimate
+
+Sales Orders
+
+Purchase Orders
+
+POS Billing (fast billing screen)
+
+Invoice List Page (filter by date, customer, status)
+
+Print/Download Invoice (PDF preview page)
+
+Features:
+
+Auto-numbering
+
+Discount per item + global discount
+
+Tax selection
+
+Multiple payment modes
+
+Customer selection modal
+
+Product search dropdown
+
+Editable line items table
+
+Stock validation
+
+Save as Draft / Save & Print
+
+Payment Collection page
+
+B. Inventory Module
+
+Pages:
+
+Items / Products List
+
+Add/Edit Item
+
+Stock Levels
+
+Stock In / Stock Out
+
+Low Stock Alerts
+
+Units & Categories Management
+
+Purchase List
+
+Vendor Management
+
+Warehouse Management (optional)
+
+Features:
+
+SKU, HSN, Barcode
+
+Batch/Expiry (optional)
+
+Opening stock
+
+Reorder level
+
+Selling & purchase price
+
+GST %
+
+Attach images
+
+Tables should include:
+
+Item Name
+
+SKU
+
+Category
+
+Stock
+
+Purchase price
+
+Selling price
+
+GST
+
+Action buttons
+
+C. Accounting Module
+
+Pages:
+
+Dashboard (total sales, expense, cashflow, pie & bar charts)
+
+Chart of Accounts
+
+Journal Entries
+
+Ledger Accounts
+
+Balance Sheet
+
+Profit & Loss
+
+Cash Flow Report
+
+Bank Accounts (Add/Edit/Transactions)
+
+Payments & Receipts
+
+Expense Management
+
+Features:
+
+Double entry accounting
+
+Transaction drill-down
+
+Export to Excel / PDF
+
+Date filters
+
+Voucher numbers
+
+4. Dashboard
+
+Include:
+
+Today’s Sales
+
+Monthly Sales
+
+Total Customers
+
+Total Items
+
+Low Stock Count
+
+Pending Payments
+
+Invoice Status Chart
+
+Sales Graph (line chart)
+
+Item category distribution (pie chart)
+
+5. Navigation Sidebar
+
+Sections:
+
+Dashboard
+
+Billing
+
+Create Invoice
+
+Invoices
+
+POS Billing
+
+Quotation
+
+Inventory
+
+Items
+
+Stock In
+
+Stock Out
+
+Categories
+
+Vendors
+
+Accounting
+
+Ledger
+
+Journal
+
+Balance Sheet
+
+Profit & Loss
+
+Cash Flow
+
+Reports
+
+Settings
+
+6. UI Components to Generate
+
+Reusable components:
+
+DataTable (sortable, searchable, paginated)
+
+Modal (Add/Edit forms)
+
+InputField
+
+SelectDropdown
+
+DatePicker
+
+InvoiceLineItemTable
+
+Sidebar
+
+TopBar
+
+Loading Skeleton
+
+Empty State Component
+
+Pagination Component
+
+Confirm Alert Component
+
+7. Forms (with Validation)
+
+Forms should include:
+
+Customer form
+
+Item form
+
+Vendor form
+
+Invoice form
+
+Payment form
+
+Expense form
+
+Bank account form
+
+Validation rules:
+
+Required fields
+
+Number-only fields
+
+GST format
+
+Email format
+
+Min/Max values
+
+Stock cannot go negative
+
+8. API Integration (Mock)
+
+Add services for:
+
+items
+
+customers
+
+invoices
+
+payments
+
+stock
+
+accounting entries
+
+Use mock JSON data or dummy APIs.
+
+9. Reports Module
+
+Build:
+
+Sales Report
+
+Purchase Report
+
+Item-wise Report
+
+Customer-wise Report
+
+GST Report
+
+Profit Report
+
+Stock Summary
+
+Each report includes:
+
+Filters
+
+Date pickers
+
+Export buttons
+
+Search
+
+Data tables
+
+10. Print / PDF Templates
+
+Create templates for:
+
+Invoice
+
+Estimate
+
+Payment receipt
+
+Sales report
+
+Modern clean layout similar to:
+
+Zoho Invoice
+
+myBillBook
+
+Vyapar
+
+End Output
+
+The final output should be:
+
+100% frontend code
+
+Clean, modular React UI
+
+Fully functional mock workflow
+
+Professional business-grade layout
