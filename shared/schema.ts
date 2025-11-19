@@ -29,6 +29,13 @@ export const customers = pgTable("customers", {
 });
 
 export const insertCustomerSchema = createInsertSchema(customers).omit({ id: true });
+export const updateCustomerSchema = insertCustomerSchema.partial().refine(
+  data => {
+    const definedFields = Object.entries(data).filter(([_, v]) => v !== undefined);
+    return definedFields.length > 0;
+  },
+  { message: "At least one field must be provided for update" }
+);
 export type InsertCustomer = z.infer<typeof insertCustomerSchema>;
 export type Customer = typeof customers.$inferSelect;
 
@@ -43,6 +50,13 @@ export const vendors = pgTable("vendors", {
 });
 
 export const insertVendorSchema = createInsertSchema(vendors).omit({ id: true });
+export const updateVendorSchema = insertVendorSchema.partial().refine(
+  data => {
+    const definedFields = Object.entries(data).filter(([_, v]) => v !== undefined);
+    return definedFields.length > 0;
+  },
+  { message: "At least one field must be provided for update" }
+);
 export type InsertVendor = z.infer<typeof insertVendorSchema>;
 export type Vendor = typeof vendors.$inferSelect;
 
@@ -53,6 +67,13 @@ export const categories = pgTable("categories", {
 });
 
 export const insertCategorySchema = createInsertSchema(categories).omit({ id: true });
+export const updateCategorySchema = insertCategorySchema.partial().refine(
+  data => {
+    const definedFields = Object.entries(data).filter(([_, v]) => v !== undefined);
+    return definedFields.length > 0;
+  },
+  { message: "At least one field must be provided for update" }
+);
 export type InsertCategory = z.infer<typeof insertCategorySchema>;
 export type Category = typeof categories.$inferSelect;
 
@@ -63,7 +84,7 @@ export const items = pgTable("items", {
   sku: text("sku"),
   hsn: text("hsn"),
   barcode: text("barcode"),
-  categoryId: varchar("category_id"),
+  categoryId: varchar("category_id").references(() => categories.id),
   unit: text("unit").notNull().default("pcs"),
   purchasePrice: decimal("purchase_price", { precision: 10, scale: 2 }).notNull(),
   sellingPrice: decimal("selling_price", { precision: 10, scale: 2 }).notNull(),
@@ -73,6 +94,13 @@ export const items = pgTable("items", {
 });
 
 export const insertItemSchema = createInsertSchema(items).omit({ id: true });
+export const updateItemSchema = insertItemSchema.partial().refine(
+  data => {
+    const definedFields = Object.entries(data).filter(([_, v]) => v !== undefined);
+    return definedFields.length > 0;
+  },
+  { message: "At least one field must be provided for update" }
+);
 export type InsertItem = z.infer<typeof insertItemSchema>;
 export type Item = typeof items.$inferSelect;
 
@@ -80,7 +108,7 @@ export type Item = typeof items.$inferSelect;
 export const invoices = pgTable("invoices", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   invoiceNumber: text("invoice_number").notNull().unique(),
-  customerId: varchar("customer_id").notNull(),
+  customerId: varchar("customer_id").notNull().references(() => customers.id),
   date: timestamp("date").notNull().defaultNow(),
   dueDate: timestamp("due_date"),
   subtotal: decimal("subtotal", { precision: 10, scale: 2 }).notNull(),
@@ -93,14 +121,21 @@ export const invoices = pgTable("invoices", {
 });
 
 export const insertInvoiceSchema = createInsertSchema(invoices).omit({ id: true });
+export const updateInvoiceSchema = insertInvoiceSchema.partial().refine(
+  data => {
+    const definedFields = Object.entries(data).filter(([_, v]) => v !== undefined);
+    return definedFields.length > 0;
+  },
+  { message: "At least one field must be provided for update" }
+);
 export type InsertInvoice = z.infer<typeof insertInvoiceSchema>;
 export type Invoice = typeof invoices.$inferSelect;
 
 // Invoice Items
 export const invoiceItems = pgTable("invoice_items", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  invoiceId: varchar("invoice_id").notNull(),
-  itemId: varchar("item_id").notNull(),
+  invoiceId: varchar("invoice_id").notNull().references(() => invoices.id, { onDelete: 'cascade' }),
+  itemId: varchar("item_id").notNull().references(() => items.id),
   description: text("description"),
   quantity: integer("quantity").notNull(),
   rate: decimal("rate", { precision: 10, scale: 2 }).notNull(),
@@ -115,7 +150,7 @@ export type InvoiceItem = typeof invoiceItems.$inferSelect;
 // Stock Transactions
 export const stockTransactions = pgTable("stock_transactions", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  itemId: varchar("item_id").notNull(),
+  itemId: varchar("item_id").notNull().references(() => items.id),
   type: text("type").notNull(),
   quantity: integer("quantity").notNull(),
   date: timestamp("date").notNull().defaultNow(),
@@ -144,7 +179,7 @@ export type JournalEntry = typeof journalEntries.$inferSelect;
 // Payments
 export const payments = pgTable("payments", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  invoiceId: varchar("invoice_id"),
+  invoiceId: varchar("invoice_id").references(() => invoices.id),
   amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
   paymentMode: text("payment_mode").notNull(),
   date: timestamp("date").notNull().defaultNow(),
